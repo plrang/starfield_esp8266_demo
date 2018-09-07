@@ -1,12 +1,47 @@
-//#include <iostream>
-#include <vector>
+// Subject: ESP 8266 Starfield demo for SSD1306 OLED display
+// Author: PLRANG ART
+// Technology: C++ Arduino, Converted from JAVA to C++ and modified
+// V: 1.0.1
+// "Forked": from Benny: https://github.com/BennyQBD
+// DOCS: https://www.youtube.com/watch?v=v7nrzvd9A5c
+
+//  MIT License
+
+//  Copyright (c) [2016-2018] [Plrang Art]
+
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+
+
+// At the moment there are some leftovers from the pure C++ version which I created as first, using the SDL library.
+// Then I slowly started disabling and removing stuff unnecessary for the ESP / Arduino.
+// This source is still a prototype, unoptimized intentionally, for possible further enhancements.
+// There are also my "thinking process" comments left and 
+
+//include <iostream>
+include <vector>
 
 // OLED
-//#include "SSD1306.h" // alias for `#include "SSD1306Wire.h"`
+//include "SSD1306.h" // alias for `include "SSD1306Wire.h"`
 
 // For a connection via SPI include
-#include <SPI.h> // Only needed for Arduino 1.6.5 and earlier
-#include "SSD1306Spi.h"
+include <SPI.h> // Only needed for Arduino 1.6.5 and earlier
+include "SSD1306Spi.h"
 
 // Initialize the OLED display using SPI
 // D5 -> CLK
@@ -15,7 +50,6 @@
 // D2 -> DC
 // D8 -> CS
  SSD1306Spi        display(D0, D2, D8);
-
 
 
 //Screen dimension constants
