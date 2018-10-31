@@ -7,7 +7,6 @@
 // DOCS: https://www.youtube.com/watch?v=v7nrzvd9A5c
 
 //  MIT License
-
 // Copyright (c) [2017-2018] [Plrang Art]
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +31,6 @@
 // It's still a prototype, unoptimized intentionally, for possible further enhancements. Yet it works pretty well.
 // There are also my "thinking process" comments left and comments from Benny.
 
-
 //include <iostream>
 include <vector>
 
@@ -51,14 +49,12 @@ include "SSD1306Spi.h"
 // D8 -> CS
  SSD1306Spi        display(D0, D2, D8);
 
-
 //Screen dimension constants
 const int SCREEN_WIDTH = 128;
 const int SCREEN_HEIGHT = 64;
 
 class Stars3D
 {
-
     /** How much the stars are spread out in 3D space, on average. */
     float m_spread;
 
@@ -104,7 +100,7 @@ class Stars3D
       }
     }
 
-    /**
+    /*
        Initializes a star to a new pseudo-random location in 3D space.
        @param i The index of the star to initialize.
     */
@@ -188,7 +184,6 @@ class Stars3D
             r.y = y;
             */
             
-            
             //green_val = (r.w * 50) + 30;
   
             /*
@@ -262,10 +257,9 @@ display.clear();
       SDL_Delay( 10 );
     */
 
-// delay(5);
 // }
  
 display.display();
 delay(10);
- 
+
 }
