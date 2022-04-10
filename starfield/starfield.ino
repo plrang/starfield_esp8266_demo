@@ -1,5 +1,5 @@
 // Subject: ESP 8266 Starfield demo for SSD1306 OLED display
-// Author: PLRANG
+// Author: PLRANG ART
 // URL: https://plrang.com
 // Technology: C++ Arduino, Converted from JAVA to C++ and modified. NodeMCU board used.
 // V: 1.0.1 prototype, working version: 27-05-2017
@@ -28,17 +28,18 @@
 
 // In this working draft, there are some leftovers from the pure C++ version which I created as first, using the SDL library.
 // Then I slowly started disabling and removing stuff unnecessary for the ESP / Arduino version.
-// It's still a prototype, unoptimized, for possible further enhancements. Yet it works pretty well.
-// There are also some "thinking process" comments left and comments from Benny.
+// It's still a prototype, unoptimized intentionally, for possible further enhancements. Yet it works pretty well.
+// There are also my "thinking process" comments left and comments from Benny.
 
+//include <iostream>
 #include <vector>
 
 // OLED
 //include "SSD1306.h" // alias for `include "SSD1306Wire.h"`
 
 // For a connection via SPI include
-#include <SPI.h>            // Only needed for Arduino 1.6.5 and earlier
-#include "SSD1306Spi.h"     // https://github.com/ThingPulse/esp8266-oled-ssd1306
+#include <SPI.h> // Only needed for Arduino 1.6.5 and earlier
+#include "SSD1306Spi.h"
 
 // Initialize the OLED display using SPI
 // D5 -> CLK
@@ -48,7 +49,7 @@
 // D8 -> CS
  SSD1306Spi        display(D0, D2, D8);
 
-//Screen dimensions
+//Screen dimension constants
 const int SCREEN_WIDTH = 128;
 const int SCREEN_HEIGHT = 64;
 
@@ -60,9 +61,13 @@ class Stars3D
     /** How quickly the stars move towards the camera */
     float m_speed;
 
-    /** The star positions on the X, Y, Z
+    /** The star positions on the X axis */
     std::vector<float> m_starX;
+
+    /** The star positions on the Y axis */
     std::vector<float> m_starY;
+
+    /** The star positions on the Z axis */
     std::vector<float> m_starZ;
 
     /**
@@ -84,8 +89,9 @@ class Stars3D
       m_starY.resize(numStars);
       m_starZ.resize(numStars);
 
-        //std::cout <<  "INIT CLASS size:" << m_starX.size()<< " vs "<< numStars<< std::endl;
-        //for(int i = 0; i < m_starX.size(); i++)
+      //std::cout <<  "INIT CLASS size:" << m_starX.size()<< " vs "<< numStars<< std::endl;
+
+      //for(int i = 0; i < m_starX.size(); i++)
 
       for (int i = 0; i < numStars; i++)
       {
@@ -101,41 +107,44 @@ class Stars3D
 
     void InitStar(int i)
     {
-        //The random values have 0.5 subtracted from them and are multiplied
-        //by 2 to remap them from the range (0, 1) to (-1, 1).
+      //The random values have 0.5 subtracted from them and are multiplied
+      //by 2 to remap them from the range (0, 1) to (-1, 1).
 
-        // rand() / (RAND_MAX)
+      // rand() / (RAND_MAX)
 
       m_starX[i] = 2 * ((float)((double)rand() / (double)RAND_MAX) - 0.5f) * m_spread;
       m_starY[i] = 2 * ((float)((double)rand() / (double)RAND_MAX) - 0.5f) * m_spread;
 
-        //For Z, the random value is only adjusted by a small amount to stop
-        //a star from being generated at 0 on Z.
+      //For Z, the random value is only adjusted by a small amount to stop
+      //a star from being generated at 0 on Z.
       m_starZ[i] = ((float)((double)rand() / (double)RAND_MAX) + 0.00001f) * m_spread;
 
-        //std::cout <<  "INIT m_starY[i]" << m_starY[i]  << std::endl;
+      //std::cout <<  "INIT m_starY[i]" << m_starY[i]  << std::endl;
+
     }
 
 
     void UpdateAndRender(float delta)
     {
-        //Stars are drawn on a black background
-        //target.Clear((byte)0x00);
+
+      //Stars are drawn on a black background
+      //target.Clear((byte)0x00);
 
       float halfWidth  = SCREEN_WIDTH / 2.0f;
       float halfHeight  = SCREEN_HEIGHT / 2.0f;
 
-        //SDL_Rect r;
+      //SDL_Rect r;
       int green_val;
 
       for (unsigned int i = 0; i < m_starX.size(); i++)
       {
-          //Update the Star.
 
-          //Move the star towards the camera which is at 0 on Z.
+        //Update the Star.
+
+        //Move the star towards the camera which is at 0 on Z.
         m_starZ[i] -= delta * m_speed;
 
-          //std::cout << "delta * m_speed " << delta * m_speed << "\n";
+        //std::cout << "delta * m_speed " << delta * m_speed << "\n";
 
         //If a star is at or behind the camera, generate a new position for it
         
@@ -144,16 +153,16 @@ class Stars3D
           InitStar(i);
           }
 
-          //Render the Star.
+        //Render the Star.
 
-          //Multiplying the position by (size/2) and then adding (size/2)
-          //remaps the positions from range (-1, 1) to (0, size)
+        //Multiplying the position by (size/2) and then adding (size/2)
+        //remaps the positions from range (-1, 1) to (0, size)
         int x = (int)((m_starX[i] / m_starZ[i]) * halfWidth + halfWidth);
         int y = (int)((m_starY[i] / m_starZ[i]) * halfHeight + halfHeight);
 
-          //If the star is not within range of the screen, then generate a
-          //new position for it.
-          //if(x < 0 || x >= target.GetWidth() || (y < 0 || y >= target.GetHeight()))
+        //If the star is not within range of the screen, then generate a
+        //new position for it.
+        //if(x < 0 || x >= target.GetWidth() || (y < 0 || y >= target.GetHeight()))
 
         if (x < 0 || x >= SCREEN_WIDTH || (y < 0 || y >= SCREEN_HEIGHT))
           {
