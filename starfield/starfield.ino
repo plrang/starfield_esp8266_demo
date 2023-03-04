@@ -4,10 +4,10 @@
 // Technology: C++ Arduino, Converted from JAVA to C++ and modified. NodeMCU board used.
 // V: 1.0.1 prototype, working version: 27-05-2017
 // "Forked" from Benny: https://github.com/BennyQBD
-// DOCS: https://www.youtube.com/watch?v=v7nrzvd9A5c
+// Benny's JAVA DOCS: https://www.youtube.com/watch?v=v7nrzvd9A5c
 
-//  MIT License
-// Copyright (c) [2017-2018] [Plrang Art]
+// MIT License
+// Copyright (c) [2017-2023] [Plrang Art]
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
@@ -46,7 +46,8 @@
 // D0 -> RES
 // D2 -> DC
 // D8 -> CS
- SSD1306Spi        display(D0, D2, D8);
+
+SSD1306Spi        display(D0, D2, D8);
 
 //Screen dimensions
 const int SCREEN_WIDTH = 128;
@@ -60,7 +61,7 @@ class Stars3D
     /** How quickly the stars move towards the camera */
     float m_speed;
 
-    /** The star positions on the X, Y, Z
+    /** The star positions on the X, Y, Z **/
     std::vector<float> m_starX;
     std::vector<float> m_starY;
     std::vector<float> m_starZ;
