@@ -6,3 +6,4 @@ To see the demo in action, you can check out the video showcasing the code on a 
 [VIDEO](https://plrang.com/esp8266-demo-starfield-source-code-now-on-github/)
 
 For further details and information, please refer to the source file.
+Additional resources needed: "SSD1306Spi.h" > https://github.com/ThingPulse/esp8266-oled-ssd1306
